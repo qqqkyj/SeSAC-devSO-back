@@ -1,4 +1,4 @@
-package com.example.devso.Security;
+package com.example.devso.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
