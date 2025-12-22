@@ -27,7 +27,8 @@ public class AuthService {
 
     @Transactional
     public UserResponse signup(SignupRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
+        // return boolean => long
+        if (userRepository.existsByUsername(request.getUsername()) == 1) {
             throw new IllegalArgumentException();
         }
 
