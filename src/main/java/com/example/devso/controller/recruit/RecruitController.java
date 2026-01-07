@@ -115,8 +115,9 @@ public class RecruitController {
 
         Long userId = (userDetails != null) ? userDetails.getId() : null;
 
-        // 내가 쓴 글 필터링용 유저명 세팅
-        if (userDetails != null) {
+        // 메인 페이지의 "내 글 보기" 필터를 켠 경우 (프론트에서 넘겨준 유저명이 없을 때만) 현재 로그인 유저명 세팅
+        if (searchRequest.isOnlyMyRecruits() && userDetails != null && 
+           (searchRequest.getCurrentUsername() == null || searchRequest.getCurrentUsername().trim().isEmpty())) {
             searchRequest.setCurrentUsername(userDetails.getUsername());
         }
 
