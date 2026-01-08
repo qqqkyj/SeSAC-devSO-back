@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/recruits/{id}/comments").permitAll()
                         .requestMatchers("/api/recruits/enum/**").permitAll()
 //                      .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
+                        .requestMatchers("/","/index.html", "/static/**", "/assets/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))

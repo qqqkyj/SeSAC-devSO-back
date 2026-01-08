@@ -62,7 +62,28 @@ dependencyManagement {
         mavenBom "org.springframework.ai:spring-ai-bom:$springAiVersion"
     }
 }
+//
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}
+def parentDir = rootDir.parentFile
+println("parentDir : $parentDir")
+def reactAppDir = "$parentDir/devSO-front"
+println("reactAppDir : $reactAppDir")
+def buildDir = layout.buildDirectory.dir("generated/querydsl").get().asFile
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["$projectDir/src/main/resources"]
+        }
+    }
+}
 
-tasks.named('test') {
-    useJUnitPlatform()
+tasks.register('copyReactFile', Copy) {
+    from "$reactAppDir/dist"
+    into "$projectDir/src/main/resources/static"
+}
+
+processResources {
+    dependsOn copyReactFile
 }

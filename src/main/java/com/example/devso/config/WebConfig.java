@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -32,4 +33,13 @@ public class  WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:" + uploadDir + "/");
     }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        // 모든 경로(API 제외)를 index.html로 포워딩
+        registry.addViewController("/{path:[^\\.]*}")
+            .setViewName("forward:/index.html");
+        registry.addViewController("/**/{path:[^\\.]*}")
+            .setViewName("forward:/index.html");
+        }
 }
