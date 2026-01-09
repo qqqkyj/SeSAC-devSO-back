@@ -111,77 +111,122 @@
 
 ## ⚙️ 프로젝트 실행 방법 (Installation & Setup)
 
-### 1) Database Setup
+### 1) Repository Clone
+
+먼저 Backend / Frontend 레포지토리를 각각 클론합니다.
+
+```bash
+# Backend
+gitclone https://github.com/dev-network/devSO-back.git
+
+# Frontend
+gitclone https://github.com/dev-network/devSO-front.git
+```
+
+---
+
+### 2) Database Setup
 
 콘솔이나 데이터베이스 관리 도구(MySQL Workbench 등)에서 아래 명령어를 실행하여 데이터베이스를 생성합니다.
 
 ```sql
-CREATE DATABASE devso DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE devso
+DEFAULTCHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
 ```
 
-### 2) API Key 발급
+---
+
+### 3) API Key 발급
 
 서비스 구동을 위해 아래 외부 API 키 발급이 필수적입니다.
 
-- **Kakao OAuth**: [카카오 개발자 센터](https://developers.kakao.com/) (내 애플리케이션 > 앱 설정 > 플랫폼 및 카카오 로그인 설정)
-- **Google Gemini API**: [Google AI Studio](https://aistudio.google.com/) (Get API key 메뉴에서 생성)
+- **Kakao OAuth**: 카카오 개발자 센터
 
-### 3) 환경 변수 설정 (Environment Variables)
+  (내 애플리케이션 → 앱 설정 → 플랫폼 및 카카오 로그인 설정)
 
-보안을 위해 API Key와 민감 정보는 소스 코드에 노출하지 않고 시스템 환경 변수를 통해 관리합니다.
+- **Google Gemini API**: Google AI Studio
 
-| **변수명 (Name)**         | **설명 (Description)**                             |
-| ------------------------- | -------------------------------------------------- |
-| **`KAKAO_CLIENT_ID`**     | 카카오에서 발급받은 **REST API 키**                |
-| **`KAKAO_CLIENT_SECRET`** | 카카오 설정 > 보안 메뉴에서 생성한 **Secret 코드** |
-| **`GEMINI_API_KEY`**      | Google AI Studio에서 발급받은 **Gemini API 키**    |
+  (Get API Key 메뉴에서 발급)
 
-### **A. 로컬 개발 환경 (IntelliJ IDEA)**
 
-1. 상단 메뉴 **[Run]** -> **[Edit Configurations...]** 클릭
-2. 왼쪽 **Spring Boot** 항목의 `DevSoApplication` 선택
-3. **Environment variables** 입력란 우측의 아이콘 클릭 후 위 항목 입력 및 저장
+---
 
-### **B. 실제 가동 환경 (System Environment)**
+### 4) 환경 변수 설정 (Environment Variables)
 
-IDE 외부에서 직접 빌드 파일을 가동하거나 서버에 배포할 때 사용합니다.
+보안을 위해 API Key 및 민감 정보는 환경 변수로 관리합니다.
 
-- **Windows (고급 시스템 설정)**
-  1. **[시스템 속성]** -> **[고급]** -> **[환경 변수]** 클릭
-  2. **[시스템 변수]** 섹션에서 **[새로 만들기]**를 통해 위 변수명과 값을 등록
-  3. 적용을 위해 PC 재시작 또는 터미널 재실행
-- **Linux (Shell Profile)**
+| 변수명 | 설명 |
+| --- | --- |
+| `KAKAO_CLIENT_ID` | 카카오 REST API 키 |
+| `KAKAO_CLIENT_SECRET` | 카카오 Client Secret |
+| `GEMINI_API_KEY` | Google Gemini API 키 |
 
-  1.  설정 파일 열기: `$ vi ~/.bashrc` (또는 전체 적용 시 `/etc/profile`)
-  2.  파일 하단에 아래 내용 추가:Bash
+### A. 로컬 개발 환경 (IntelliJ IDEA)
 
-           `export KAKAO_CLIENT_ID="발급받은키"
+1. **Run → Edit Configurations**
+2. `DevSoApplication` 선택
+3. **Environment variables** 항목에 위 변수 등록
 
-      export KAKAO_CLIENT_SECRET="발급받은비밀번호"
-      export GEMINI_API_KEY="발급받은키"`
+### B. 실제 가동 환경 (System Environment)
 
-  3.  즉시 반영: `$ source ~/.bashrc`
+- **Windows**
+    - 시스템 속성 → 고급 → 환경 변수 → 시스템 변수 등록
+- **Linux**
 
-### 4) 실행 (Running the App)
+    ```bash
+    export KAKAO_CLIENT_ID="발급받은키"
+    export KAKAO_CLIENT_SECRET="발급받은비밀번호"
+    export GEMINI_API_KEY="발급받은키"
+    ```
 
-### **Backend**
 
-Bash
+---
 
-`cd devSO-back
-./gradlew bootRun`
+### 5) 애플리케이션 실행 (Running the App)
 
-- **Swagger API Docs**: `http://localhost:8080/swagger-ui.html`
+### **Backend 실행**
 
-### **Frontend**
+```bash
+cd devSO-back
+./gradlew bootRun
+```
 
-Bash
+- 서버 주소: `http://localhost:8080`
+- Swagger 문서: `http://localhost:8080/swagger-ui.html`
 
-`cd devSO-front
+---
+
+### **Frontend 실행**
+
+```bash
+cd devSO-front
 npm install
-npm run dev`
+npm run dev
+```
 
-- **기본 홈 URL**: `http://localhost:5173/`
+- 서비스 접속 URL: `http://localhost:5173/`
+
+---
+
+## 🧪 테스트 계정 안내 (Test Accounts)
+
+회원가입 없이 주요 기능을 바로 체험할 수 있도록
+
+아래 **테스트 계정**이 사전에 등록되어 있습니다.
+
+| ID | Password |
+| --- | --- |
+| test | test1234 |
+| test2 | test1234 |
+| test3 | test1234 |
+| test4 | test1234 |
+
+> ⚠️ 테스트 계정은 개발 및 시연 목적으로만 사용되며,
+>
+>
+> 데이터는 초기화되거나 변경될 수 있습니다.
+>
 
 ---
 
